@@ -1,0 +1,641 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>区芷睿 | 个人空间</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Georgia&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --bg-white: #F8F9FA; 
+            --card-white: #FFFFFF;
+            --text-main: #333333; 
+            --text-secondary: #666666;
+            --google-blue: #1A73E8;
+            --ins-pink: #FFD1DC;
+            --mint-green: #A8E6CF;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg-white); 
+            color: var(--text-main); 
+            font-family: 'Roboto', sans-serif; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%; height: 72px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .logo-container { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.25rem; letter-spacing: 0.5px; }
+        .custom-svg-icon { width: 28px; height: 28px; animation: spin 12s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        header {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f2f5 100%); background-attachment: fixed; position: relative;
+        }
+        .glow-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5; z-index: 0; animation: float 10s ease-in-out infinite alternate; }
+        .blob-pink { width: 320px; height: 320px; background: var(--ins-pink); top: 15%; left: 10%; }
+        .blob-mint { width: 280px; height: 280px; background: var(--mint-green); bottom: 15%; right: 10%; animation-delay: -5s;}
+        @keyframes float { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-40px) scale(1.05); } }
+
+        .typewriter { position: relative; z-index: 10; }
+        .typewriter h1 {
+            font-size: 4.5rem; font-weight: 700; color: #202124; border-right: 3px solid var(--mint-green);
+            white-space: nowrap; overflow: hidden; margin: 0 auto; letter-spacing: -1px;
+        }
+
+        .scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+        .container { max-width: 1040px; margin: 0 auto; padding: 64px 24px; position: relative; z-index: 10; }
+
+        .material-intro-section {
+            background-color: var(--card-white); border-radius: 24px; border: 1px solid rgba(0,0,0,0.04);
+            padding: 64px 48px; margin-bottom: 72px; box-shadow: 0 8px 32px rgba(0,0,0,0.02);
+        }
+        .intro-container { 
+            display: flex; flex-direction: column; align-items: center; text-align: center; 
+            max-width: 800px; margin: 0 auto; 
+        }
+        .profile-avatar { 
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover; 
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08); margin-bottom: 32px; 
+        }
+        .intro-name { font-size: 32px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; line-height: 1.2; }
+        .intro-subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 24px; font-weight: 400; }
+        .intro-bio { 
+            font-size: 16px; color: var(--text-main); line-height: 1.8; margin-bottom: 32px; 
+            max-width: 680px; 
+        }
+        .intro-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+        .m-tag { 
+            padding: 8px 16px; border: 1px solid #e0e0e0; border-radius: 16px; 
+            font-size: 14px; color: var(--text-main); transition: var(--transition); cursor: default; 
+        }
+        .m-tag:hover { border-color: var(--text-main); background: #fafafa; transform: translateY(-2px); }
+
+        .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 20px; }
+        .social-link { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 16px; border: 1px solid rgba(0,0,0,0.12); background: rgba(255,255,255,0.85); color: var(--text-main); text-decoration: none; font-weight: 500; transition: var(--transition); }
+        .social-link:hover { border-color: var(--mint-green); background: rgba(255,255,255,0.98); transform: translateY(-2px); }
+        .social-link .material-icons { font-size: 18px; }
+
+        .portfolio-swap-section { background: var(--card-white); border-radius: 24px; padding: 56px; margin-bottom: 72px; box-shadow: 0 8px 32px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.02); }
+        .portfolio-header { margin-bottom: 48px; max-width: 600px; }
+        .portfolio-header .section-title { font-size: 2.5rem; font-family: 'Georgia', serif; color: var(--text-main); margin-bottom: 16px; font-weight: 400; }
+        .portfolio-header .section-desc { color: var(--text-secondary); line-height: 1.8; font-size: 0.95rem; }
+
+        .cardswap-container { display: flex; gap: 64px; align-items: center; min-height: 480px; }
+        
+        .cardswap-left { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .bg-shape { position: absolute; top: -24px; right: -24px; width: 85%; height: 90%; background: #fdfbfb; border-radius: 40px 100px 40px 40px; z-index: 0; box-shadow: inset 0 0 40px rgba(0,0,0,0.02); }
+        .image-stack { position: relative; width: 100%; max-width: 360px; aspect-ratio: 3 / 4; z-index: 1; perspective: 1000px; }
+        
+        .swap-card { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; box-shadow: 0 16px 40px rgba(0,0,0,0.1); opacity: 0; transform: translateX(30px) translateZ(-50px); transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; }
+        .swap-card.active { opacity: 1; transform: translateX(0) translateZ(0); z-index: 10; }
+        .swap-card.prev { opacity: 0; transform: translateX(-30px) translateZ(-50px); z-index: 5; }
+
+        .swap-pagination { display: flex; gap: 12px; margin-top: 32px; z-index: 10; }
+        .swap-dot { width: 8px; height: 8px; border-radius: 50%; background: #e0e0e0; cursor: pointer; transition: all 0.3s; }
+        .swap-dot.active { background: var(--text-main); transform: scale(1.2); }
+
+        .cardswap-right { flex: 1; padding-left: 24px; }
+        .meta-overline { font-size: 0.8rem; letter-spacing: 2px; color: var(--text-secondary); margin-bottom: 16px; text-transform: uppercase; }
+        .swap-title { font-size: 2.2rem; color: var(--text-main); margin-bottom: 48px; font-weight: 500; transition: opacity 0.3s ease, transform 0.3s ease; }
+        .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; transition: opacity 0.3s ease; }
+        .meta-item { display: flex; flex-direction: column; gap: 8px; }
+        .meta-label { font-size: 0.75rem; color: #999; letter-spacing: 1.5px; text-transform: uppercase; }
+        .meta-value { font-size: 1rem; color: var(--text-main); font-weight: 500; }
+
+        .glass-card { background: var(--card-white); border-radius: 24px; padding: 48px; margin-bottom: 64px; box-shadow: 0 8px 32px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.04); transition: var(--transition); }
+        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(168, 230, 207, 0.2); }
+
+        .bg-music-btn { position: fixed; bottom: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%; border: none; background: rgba(26, 115, 232, 0.9); color: white; box-shadow: 0 12px 30px rgba(0,0,0,0.15); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 200; transition: transform 0.2s, background 0.2s; }
+        .bg-music-btn:hover { transform: translateY(-2px); background: rgba(26, 115, 232, 1); }
+        .bg-music-btn.active { background: rgba(168, 230, 207, 0.95); color: var(--text-main); }
+
+        .music-list { border: 1px solid rgba(0,0,0,0.06); border-radius: 16px; overflow: hidden; }
+        .music-row { display: grid; grid-template-columns: 40px 1fr 1.2fr 80px 40px; align-items: center; padding: 12px 16px; gap: 12px; cursor: pointer; transition: background 0.2s; }
+        .music-row:not(.music-row-header):hover { background: rgba(168, 230, 207, 0.12); }
+        .music-row-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); background: rgba(248, 249, 250, 0.9); }
+        .music-row.active { background: rgba(26, 115, 232, 0.12); }
+        .music-col { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .music-col-title { font-weight: 500; }
+        .music-col-action { display: flex; justify-content: center; }
+        .music-row .material-icons { color: var(--text-secondary); transition: color 0.2s; }
+        .music-row.active .material-icons { color: var(--google-blue); }
+
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+        .game-card { background: rgba(248, 249, 250, 0.9); border-radius: 18px; padding: 20px 18px; box-shadow: 0 10px 22px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; cursor: default; }
+        .game-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,0.1); }
+        .game-title { font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
+        .game-meta { font-size: 0.85rem; color: var(--text-secondary); }
+
+        .glass-card h2 { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; font-size: 1.5rem; color: var(--text-main); }
+        .glass-card h2 .material-icons { color: var(--ins-pink); }
+
+        .form-group { margin-bottom: 16px; position: relative; }
+        .form-group .material-icons { position: absolute; left: 16px; top: 16px; color: #aaa; transition: color 0.3s;}
+        input, textarea { width: 100%; padding: 16px 16px 16px 48px; border: 2px solid #f0f0f0; border-radius: 12px; background: var(--bg-white); font-family: inherit; font-size: 1rem; outline: none; transition: var(--transition); color: var(--text-main); }
+        input:focus, textarea:focus { border-color: var(--mint-green); background: #fff; }
+        input:focus + .material-icons, textarea:focus + .material-icons { color: var(--mint-green); }
+        
+        .btn-submit { background: var(--text-main); color: white; border: none; padding: 14px 32px; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 1rem; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+        .btn-submit:hover { background: var(--google-blue); box-shadow: 0 6px 16px rgba(26,115,232,0.3); transform: translateY(-2px); }
+        
+        .msg-list { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+        .msg-item { background: var(--bg-white); padding: 24px; border-radius: 16px; display: flex; justify-content: space-between; align-items: flex-start; border-left: 4px solid var(--ins-pink); animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        @media(max-width: 768px) {
+            .cardswap-container { flex-direction: column; gap: 40px; text-align: center; }
+            .cardswap-right { padding-left: 0; }
+            .material-intro-section, .portfolio-swap-section, .glass-card { padding: 40px 24px; }
+            .typewriter h1 { font-size: 2.8rem; }
+            .profile-avatar { width: 120px; height: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="logo-container">
+            <svg class="custom-svg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="#1A73E8"></path>
+            </svg>
+            <span>区芷睿的个人空间</span>
+        </div>
+    </nav>
+    <button id="bg-music-toggle" class="bg-music-btn" aria-label="切换背景音乐">
+        <span class="material-icons">music_note</span>
+    </button>
+
+    <header>
+        <div class="blob-pink glow-blob"></div>
+        <div class="blob-mint glow-blob"></div>
+        <div class="typewriter"><h1 id="type-text">
+</h1></div>
+        <p id="scroll-to-explore" style="margin-top: 2rem; color: var(--text-secondary); z-index: 10; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer;">
+            <span class="material-icons" style="animation: bounce 2s infinite;">keyboard_arrow_down</span>
+            SCROLL TO EXPLORE
+        </p>
+    </header>
+
+    <main class="container">
+        
+        <section class="material-intro-section scroll-reveal">
+            <div class="intro-container">
+                <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/35301f59863f4c6a9f6ea20ae81cb52b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=202603101628030DEAE67AD0C6DB21826A&amp;rrcfp=e75484ac&amp;x-expires=1773736083&amp;x-signature=bEw35ATxB%2BAu6%2B%2BVtCXjJz0FN5Y%3D" alt="创作者头像" class="profile-avatar">
+                
+                <h2 class="intro-name">区芷睿</h2>
+                <p class="intro-subtitle">艺术与设计学院 · 产品设计专业</p>
+                <p class="intro-bio">
+                    超爱抓拍生活中的有趣瞬间📸，也喜欢到处旅行~游戏宅一枚🎮，话少但能量足，快乐型选手，喜欢一切新鲜好玩的事，拒绝无聊，永远在尝试没做过的事！
+                </p>
+
+                <div class="intro-tags">
+                    <span class="m-tag">摄影</span>
+                    <span class="m-tag">ddl晚期患者</span>
+                    <span class="m-tag">旅游</span>
+                    <span class="m-tag">istp</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card scroll-reveal">
+            <h2><span class="material-icons">link</span> 关注与联系方式</h2>
+            <div class="social-links">
+                <a class="social-link" href="https://www.xiaohongshu.com/user/profile/5f26ab7b000000000101dddf" target="_blank" rel="noreferrer">
+                    <span class="material-icons">favorite</span> 小红书
+                </a>
+                <a class="social-link" href="https://space.bilibili.com/229694833?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">
+                    <span class="material-icons">ondemand_video</span> B站
+                </a>
+                <a class="social-link" href="tel:+8618102825281">
+                    <span class="material-icons">smartphone</span> +86 181 0282 5281
+                </a>
+                <a class="social-link" href="tencent://message/?uin=2026222388&Site=&Menu=yes">
+                    <span class="social-icon" style="width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center;">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2c-3.86 0-7 3.14-7 7 0 4.97 5.47 10.96 6.3 11.88.18.18.43.24.68.18.25-.06.43-.27.47-.53.07-.42.1-.85.1-1.28 0-1.93-1.14-3.1-2.32-3.1-.41 0-.81.16-1.12.44-.26.24-.58.39-.94.39-.68 0-1.24-.55-1.24-1.24 0-.4.2-.77.53-1.01.23-.15.5-.23.78-.23.23 0 .46.06.66.17.52.28 1.12.28 1.64 0 .2-.11.43-.17.66-.17.28 0 .55.08.78.23.33.24.53.6.53 1.01 0 .69-.55 1.24-1.24 1.24-.36 0-.68-.15-.94-.39-.31-.28-.72-.44-1.12-.44-1.18 0-2.32 1.17-2.32 3.1 0 .43.03.86.1 1.28.04.26.22.47.47.53.25.06.5 0 .68-.18.83-.92 6.3-6.91 6.3-11.88 0-3.86-3.14-7-7-7z" />
+                        </svg>
+                    </span>
+                    QQ 2026222388
+                </a>
+            </div>
+        </section>
+            </div>
+        </section>
+
+        <section class="portfolio-swap-section scroll-reveal">
+            <div class="portfolio-header">
+                <h2 class="section-title">我的摄影作品</h2>
+                <p class="section-desc">专注光影与情绪的定格，探索当代人像美学。以下精选展示近期的主打摄影企划。</p>
+            </div>
+        
+            <div class="cardswap-container">
+                <div class="cardswap-left">
+                    <div class="bg-shape"></div> 
+                    <div class="image-stack" id="image-stack"></div>
+                    <div class="swap-pagination" id="swap-pagination"></div>
+                </div>
+        
+                <div class="cardswap-right">
+                    <div class="meta-overline">FEATURED WORK</div>
+                    <h3 class="swap-title" id="swap-title">作品名称</h3>
+                    
+                    <div class="meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-label">LOCATION</span>
+                            <span class="meta-value" id="swap-location">拍摄地点</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">DATE</span>
+                            <span class="meta-value" id="swap-date">拍摄时间</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">INDEX</span>
+                            <span class="meta-value" id="swap-index">01 / 05</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card scroll-reveal">
+            <h2><span class="material-icons">graphic_eq</span> 喜欢的音乐</h2>
+            <canvas id="fake-visualizer" style="width: 100%; height: 88px; border-radius: 12px; background: #fafafa; margin-bottom: 24px; border: 1px solid #f0f0f0;"></canvas>
+            <div class="music-list" id="music-list">
+                <div class="music-row music-row-header">
+                    <span class="music-col music-col-num">#</span>
+                    <span class="music-col music-col-title">歌曲</span>
+                    <span class="music-col music-col-artist">歌手</span>
+                    <span class="music-col music-col-duration">时长</span>
+                    <span class="music-col music-col-action"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card scroll-reveal">
+            <h2><span class="material-icons">sports_esports</span> 喜欢的游戏</h2>
+            <div class="game-grid">
+                <div class="game-card">
+                    <div class="game-title">集合啦！动物森友会</div>
+                    <div class="game-meta">Nintendo Switch · 生活模拟</div>
+                </div>
+                <div class="game-card">
+                    <div class="game-title">塞尔达传说</div>
+                    <div class="game-meta">Nintendo Switch · 动作冒险</div>
+                </div>
+                <div class="game-card">
+                    <div class="game-title">怪物猎人</div>
+                    <div class="game-meta">PC · 动作冒险</div>
+                </div>
+                <div class="game-card">
+                    <div class="game-title">明日方舟</div>
+                    <div class="game-meta">PC/手机 · 塔防</div>
+                </div>
+            <div class="game-card">
+                <div class="game-title">逆转裁判</div>
+                <div class="game-meta">Nintendo Switch · 法庭推理</div>
+            </div>
+            <div class="game-card">
+                <div class="game-title">P5R</div>
+                <div class="game-meta">Nintendo Switch · JRPG</div>
+            </div>
+            </div>
+        </section>
+
+        <section class="glass-card scroll-reveal">
+            <h2><span class="material-icons">forum</span> 留言板</h2>
+            <form id="msg-form">
+                <div class="form-group">
+                    <input type="text" id="msg-name" placeholder="你的名字" required="" autocomplete="off">
+                    <span class="material-icons">face</span>
+                </div>
+                <div class="form-group">
+                    <textarea id="msg-content" rows="3" placeholder="写下你的留言..." required=""></textarea>
+                    <span class="material-icons">edit</span>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <span class="material-icons">send</span> 发送留言
+                </button>
+            </form>
+            <div class="msg-list" id="msg-list"></div>
+        </section>
+    </main>
+
+    <script>
+        const text = "Welcome To My Space.";
+        const typeEl = document.getElementById('type-text');
+        let typeIdx = 0;
+        function typeWriter() {
+            if (typeIdx < text.length) {
+                typeEl.innerHTML += text.charAt(typeIdx);
+                typeIdx++;
+                setTimeout(typeWriter, 120);
+            } else {
+                setInterval(() => { typeEl.style.borderRightColor = typeEl.style.borderRightColor === 'transparent' ? 'var(--mint-green)' : 'transparent'; }, 500);
+            }
+        }
+        window.onload = typeWriter;
+
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+
+        const scrollHint = document.getElementById('scroll-to-explore');
+        const scrollTarget = document.querySelector('.material-intro-section');
+        const scrollToExplore = () => { scrollTarget?.scrollIntoView({ behavior: 'smooth' }); };
+        scrollHint?.addEventListener('click', scrollToExplore);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) {
+                e.preventDefault();
+                scrollToExplore();
+            }
+        });
+
+        const worksData = [
+            { img: "photo/01.jpg", title: "佛光普照", location: "佛山 · 仁寿寺", date: "2026.01" },
+            { img: "photo/02.jpg", title: "红纸墨香书流年", location: "佛山 · 春晖街", date: "2026.01" },
+            { img: "photo/03.jpg", title: "赛场起点的蓄势", location: "广州 · 广东工业大学", date: "2026.01" },
+            { img: "photo/04.jpg", title: "碧海孤舟与自由之翼", location: "威海 · 沉船", date: "2026.01" },
+            { img: "photo/05.jpg", title: "枯寂之影", location: "西安 · 大雁塔", date: "2026.01" }
+        ];
+
+        const imageStack = document.getElementById('image-stack');
+        const paginationContainer = document.getElementById('swap-pagination');
+        const titleEl = document.getElementById('swap-title');
+        const locationEl = document.getElementById('swap-location');
+        const dateEl = document.getElementById('swap-date');
+        const indexEl = document.getElementById('swap-index');
+
+        let currentWorkIndex = 0;
+        let swapTimer;
+
+        worksData.forEach((work, index) => {
+            const img = document.createElement('img');
+            img.src = work.img; 
+            img.alt = `摄影作品 - ${work.title}`;
+            img.className = 'swap-card';
+            if(index === 0) img.classList.add('active');
+            img.addEventListener('click', () => changeSwapCard((currentWorkIndex + 1) % worksData.length));
+            imageStack.appendChild(img);
+
+            const dot = document.createElement('div');
+            dot.className = 'swap-dot';
+            if(index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => changeSwapCard(index));
+            paginationContainer.appendChild(dot);
+        });
+
+        const swapCards = document.querySelectorAll('.swap-card');
+        const swapDots = document.querySelectorAll('.swap-dot');
+
+        function updateSwapText(index) {
+            const work = worksData[index];
+            titleEl.style.opacity = 0; titleEl.style.transform = 'translateY(10px)';
+            document.querySelector('.meta-grid').style.opacity = 0;
+
+            setTimeout(() => {
+                titleEl.textContent = work.title; locationEl.textContent = work.location;
+                dateEl.textContent = work.date; indexEl.textContent = `0${index + 1} / 0${worksData.length}`;
+                titleEl.style.opacity = 1; titleEl.style.transform = 'translateY(0)';
+                document.querySelector('.meta-grid').style.opacity = 1;
+            }, 300);
+        }
+
+        function changeSwapCard(newIndex) {
+            if(newIndex === currentWorkIndex) return;
+            swapCards[currentWorkIndex].classList.remove('active');
+            swapCards[currentWorkIndex].classList.add('prev');
+            swapDots[currentWorkIndex].classList.remove('active');
+
+            setTimeout(() => { swapCards.forEach(card => card.classList.remove('prev')); }, 600); 
+
+            currentWorkIndex = newIndex;
+            swapCards[currentWorkIndex].classList.add('active');
+            swapDots[currentWorkIndex].classList.add('active');
+            
+            updateSwapText(currentWorkIndex); resetSwapTimer();
+        }
+
+        function resetSwapTimer() { 
+            clearInterval(swapTimer); 
+            swapTimer = setInterval(() => changeSwapCard((currentWorkIndex + 1) % worksData.length), 5000); 
+        }
+        
+        document.querySelector('.portfolio-swap-section').addEventListener('mouseenter', () => clearInterval(swapTimer));
+        document.querySelector('.portfolio-swap-section').addEventListener('mouseleave', resetSwapTimer);
+        
+        updateSwapText(currentWorkIndex); resetSwapTimer();
+
+        const canvas = document.getElementById('fake-visualizer');
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        function resizeCanvas() { canvas.width = canvas.clientWidth * dpr; canvas.height = canvas.clientHeight * dpr; ctx.scale(dpr, dpr); }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+        function drawVisualizer() {
+            const width = canvas.width / dpr, height = canvas.height / dpr;
+            ctx.clearRect(0, 0, width, height);
+            const time = Date.now() / 300, numBars = 50, barWidth = width / numBars;
+            const gradient = ctx.createLinearGradient(0, height, 0, 0);
+            gradient.addColorStop(0, '#A8E6CF'); gradient.addColorStop(1, '#FFD1DC');
+            ctx.fillStyle = gradient;
+
+            for (let j = 0; j < numBars; j++) {
+                const wave1 = Math.sin(time + j * 0.2), wave2 = Math.cos(time * 0.7 + j * 0.4);
+                const barHeight = (((wave1 + wave2 + 2) / 4) * (Math.random() * 0.15 + 0.85)) * (height * 0.8); 
+                ctx.beginPath(); ctx.roundRect(j * barWidth + 1.5, height - barHeight, barWidth - 3, barHeight, [4, 4, 0, 0]); ctx.fill();
+            }
+            requestAnimationFrame(drawVisualizer);
+        }
+        drawVisualizer();
+
+        const musicTracks = [
+            { title: "Avid", artist: "Tadakoi", duration: "05:09", src: "audio/Tadakoi-Avid (TV动画《86-不存在的战区-》ED).mp3" },
+            { title: "カラノココロ", artist: "Kyle Xian", duration: "01:23", src: "audio/Kyle Xian-カラノココロ-火影忍者 OP.mp3" },
+            { title: "夏霞", artist: "あたらよ", duration: "03:04", src: "audio/あたらよ-夏霞.mp3" },
+            { title: "I Really Want to Stay at Your House", artist: "Samuel Kim & Lorien", duration: "04:06", src: "audio/Samuel Kim&Lorien-I Really Want to Stay at Your House.mp3" }
+        ];
+
+        const audioPlayer = document.createElement('audio');
+        audioPlayer.id = 'audio-player';
+        audioPlayer.preload = 'metadata';
+        audioPlayer.style.display = 'none';
+        document.body.appendChild(audioPlayer);
+
+        const bgAudio = document.createElement('audio');
+        bgAudio.id = 'bg-audio';
+        bgAudio.loop = true;
+        bgAudio.volume = 0.28;
+        bgAudio.autoplay = true;
+        bgAudio.muted = false; // 自动播放时不静音
+        bgAudio.src = "audio/米粒-集合啦!动物森友会 主题曲.mp3";
+        document.body.appendChild(bgAudio);
+
+        const bgMusicBtn = document.getElementById('bg-music-toggle');
+        function updateBgMusicButton() {
+            bgMusicBtn.classList.toggle('active', !bgAudio.muted);
+            bgMusicBtn.querySelector('.material-icons').textContent = bgAudio.muted ? 'music_note' : 'music_off';
+        }
+        function tryPlayBgAudio() {
+            // 尝试播放；若浏览器阻止，则持续重试（直到成功或页面卸载）
+            const attempt = () => {
+                bgAudio.play().catch(() => {
+                    // 继续重试，直到成功
+                    setTimeout(attempt, 800);
+                });
+            };
+            attempt();
+        }
+
+        bgMusicBtn.addEventListener('click', () => {
+            bgAudio.muted = !bgAudio.muted;
+            if (!bgAudio.muted) tryPlayBgAudio();
+            updateBgMusicButton();
+        });
+
+        updateBgMusicButton();
+        tryPlayBgAudio();
+
+        const musicListEl = document.getElementById('music-list');
+        let activeTrack = null;
+
+        function formatDuration(seconds) {
+            if (!seconds || Number.isNaN(seconds)) return '--:--';
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function renderMusicList() {
+            musicListEl.innerHTML = musicTracks.map((track, idx) => `
+                <div class="music-row" data-index="${idx}">
+                    <span class="music-col music-col-num">${idx + 1}</span>
+                    <span class="music-col music-col-title">${track.title}</span>
+                    <span class="music-col music-col-artist">${track.artist}</span>
+                            <span class="music-col music-col-duration">${track.duration}</span>
+                    <span class="music-col music-col-action">
+                        <span class="material-icons">play_arrow</span>
+                    </span>
+                </div>
+            `).join('');
+
+            musicListEl.querySelectorAll('.music-row').forEach(row => {
+                row.addEventListener('click', () => {
+                    const idx = Number(row.dataset.index);
+                    setActiveTrack(idx);
+                });
+            });
+        }
+
+        function setActiveTrack(index) {
+            const track = musicTracks[index];
+            if (!track) return;
+
+            if (activeTrack === index) {
+                // toggle pause/play
+                if (audioPlayer.paused) {
+                    bgAudio.pause();
+                    audioPlayer.play();
+                } else {
+                    audioPlayer.pause();
+                    if (!bgAudio.muted) bgAudio.play().catch(() => {});
+                }
+                updateRowIcons();
+                return;
+            }
+
+            activeTrack = index;
+            audioPlayer.src = track.src;
+
+            // 播放音乐时暂停背景音乐
+            bgAudio.pause();
+            audioPlayer.play().catch(() => {});
+
+            updateRowIcons();
+        }
+
+        function updateRowIcons() {
+            musicListEl.querySelectorAll('.music-row').forEach((row, i) => {
+                const icon = row.querySelector('.material-icons');
+                const durationEl = row.querySelector('.music-col-duration');
+                const isActive = i === activeTrack;
+                row.classList.toggle('active', isActive);
+                if (icon) icon.textContent = isActive && !audioPlayer.paused ? 'pause' : 'play_arrow';
+
+                if (isActive && audioPlayer.duration && !Number.isNaN(audioPlayer.duration)) {
+                    durationEl.textContent = formatDuration(audioPlayer.duration);
+                }
+            });
+        }
+
+        audioPlayer.addEventListener('loadedmetadata', updateRowIcons);
+        audioPlayer.addEventListener('play', () => {
+            bgAudio.pause();
+            updateRowIcons();
+        });
+
+        audioPlayer.addEventListener('pause', () => {
+            if (!bgAudio.muted) bgAudio.play().catch(() => {});
+            updateRowIcons();
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            const nextIndex = (activeTrack + 1) % musicTracks.length;
+            setActiveTrack(nextIndex);
+        });
+
+        renderMusicList();
+
+        const STORAGE_KEY = 'visual_site_msgs_v_final';
+        const msgForm = document.getElementById('msg-form');
+        const msgList = document.getElementById('msg-list');
+
+        function loadMessages() { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [{ id: 1, name: "Admin", content: "保持专注，捕捉光影。📸", time: new Date().toLocaleString() }]; }
+
+        function renderMessages() {
+            msgList.innerHTML = loadMessages().map((m) => `
+                <div class="msg-item">
+                    <div>
+                        <h4 style="margin-bottom:8px; color:var(--text-main); font-size:1rem; display:flex; align-items:center;">
+                            ${m.name} 
+                            <span style="font-size:0.8rem; color:var(--text-secondary); font-weight:normal; margin-left:12px;">${m.time}</span>
+                        </h4>
+                        <p style="color:var(--text-secondary); font-size:0.95rem; line-height:1.6;">${m.content}</p>
+                    </div>
+                    <button style="background:none; border:none; color:#ccc; cursor:pointer; padding:4px; transition:color 0.3s;" onmouseover="this.style.color='#ff5252'" onmouseout="this.style.color='#ccc'" onclick="deleteMessage(${m.id})">
+                        <span class="material-icons">delete_outline</span>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        msgForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const msgs = loadMessages();
+            msgs.unshift({ id: Date.now(), name: document.getElementById('msg-name').value, content: document.getElementById('msg-content').value, time: new Date().toLocaleString() });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(msgs));
+            msgForm.reset(); renderMessages();
+        });
+
+        window.deleteMessage = function(id) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(loadMessages().filter(m => m.id !== id)));
+            renderMessages();
+        };
+
+        renderMessages();
+    </script>
+
+</body></html>
